@@ -1089,17 +1089,18 @@ playerjs.VideoJSAdapter.prototype.init = function(player){
 
   // Set up the actual receiver
   var receiver = this.receiver = new playerjs.Receiver();
+  $player = $(player);
 
   /* EVENTS */
-  player.on("pause", function(){
+  $player.on("pause", function(){
     receiver.emit('pause');
   });
 
-  player.on("play", function(){
+  $player.on("play", function(){
     receiver.emit('play');
   });
 
-  player.on("timeupdate", function(e){
+  $player.on("timeupdate", function(e){
     var seconds = player.currentTime(),
       duration = player.duration();
 
@@ -1114,11 +1115,11 @@ playerjs.VideoJSAdapter.prototype.init = function(player){
     receiver.emit('timeupdate', value);
   });
 
-  player.on("ended", function(){
+  $player.on("ended", function(){
     receiver.emit('ended');
   });
 
-  player.on("error", function(){
+  $player.on("error", function(){
     receiver.emit('error');
   });
 
