@@ -1123,6 +1123,21 @@ playerjs.VideoJSAdapter.prototype.init = function(player){
     receiver.emit('error');
   });
 
+  /*LISTENERS*/
+  $("video").each( function() {
+    this.addEventListener('playing', function() {
+      receiver.emit('play');
+    });
+
+    this.addEventListener('pause', function() {
+      receiver.emit('pause');
+    });
+
+    this.addEventListener('ended', function() {
+      receiver.emit('ended');
+    });
+  });
+
 
   /* METHODS */
   receiver.on('play', function(){
