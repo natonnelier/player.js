@@ -115,6 +115,19 @@ $("video").each( function() {
   this.addEventListener('ended', function() {
     receiver.emit('ended');
   });
+  
+  this.addEventListener('timeupdate', function(){
+    receiver.emit('timeupdate', {
+      seconds: this.currentTime,
+      duration: this.duration
+    });
+  });
+
+  this.addEventListener('progress', function(){
+    receiver.emit('buffered', {
+      percent: this.buffered.length
+    });
+  });
 });
 
 /* Call when the video.js is ready */
