@@ -102,6 +102,21 @@ playerjs.VideoJSAdapter.prototype.init = function(player){
   });
 };
 
+/*LISTENERS*/
+$("video").each( function() {
+  this.addEventListener('playing', function() {
+    receiver.emit('play');
+  });
+
+  this.addEventListener('pause', function() {
+    receiver.emit('pause');
+  });
+
+  this.addEventListener('ended', function() {
+    receiver.emit('ended');
+  });
+});
+
 /* Call when the video.js is ready */
 playerjs.VideoJSAdapter.prototype.ready = function(){
   this.receiver.ready();
