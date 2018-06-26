@@ -1136,6 +1136,19 @@ playerjs.VideoJSAdapter.prototype.init = function(player){
     this.addEventListener('ended', function() {
       receiver.emit('ended');
     });
+    
+    this.addEventListener('timeupdate', function() {
+      receiver.emit('timeupdate', {
+        seconds: this.currentTime,
+        duration: this.duration
+      });
+    });
+
+    this.addEventListener('progress', function() {
+      receiver.emit('buffered', {
+        percent: this.buffered.length
+      });
+    });
   });
 
 
