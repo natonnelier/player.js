@@ -1089,37 +1089,21 @@ playerjs.VideoJSAdapter.prototype.init = function(player){
 
   // Set up the actual receiver
   var receiver = this.receiver = new playerjs.Receiver();
-  $player = $(player);
 
   /* EVENTS */
-  $player.on("pause", function(){
+  player.on("pause", function(){
     receiver.emit('pause');
   });
 
-  $player.on("play", function(){
+  player.on("play", function(){
     receiver.emit('play');
   });
 
-  $player.on("timeupdate", function(e){
-    var seconds = player.currentTime(),
-      duration = player.duration();
-
-    if (!seconds || !duration){
-      return false;
-    }
-
-    var value = {
-      seconds: seconds,
-      duration: duration
-    };
-    receiver.emit('timeupdate', value);
-  });
-
-  $player.on("ended", function(){
+  player.on("ended", function(){
     receiver.emit('ended');
   });
 
-  $player.on("error", function(){
+  player.on("error", function(){
     receiver.emit('error');
   });
 
@@ -1135,19 +1119,6 @@ playerjs.VideoJSAdapter.prototype.init = function(player){
 
     this.addEventListener('ended', function() {
       receiver.emit('ended');
-    });
-    
-    this.addEventListener('timeupdate', function() {
-      receiver.emit('timeupdate', {
-        seconds: this.currentTime,
-        duration: this.duration
-      });
-    });
-
-    this.addEventListener('progress', function() {
-      receiver.emit('buffered', {
-        percent: this.buffered.length
-      });
     });
   });
 
